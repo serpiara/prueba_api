@@ -23,7 +23,7 @@ def buid_web_page(body)
             inicio += 1                      
         end
         output += "\n\t\t<ul>\n\t</body>\n</html>"
-    File.write('index.html',output)      
+        File.write('index.html',output)      
 end
 
 #Bloque del programa
