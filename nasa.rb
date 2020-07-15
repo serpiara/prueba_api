@@ -7,36 +7,24 @@ def request(address,app_key)
         https.use_ssl = true
         request = Net::HTTP::Get.new(url)
         response = https.request(request)
-#puts response.read_body.class
         body = JSON.parse response.read_body
-#Este es el hash
-#puts body.class  
         return body
 end     
 
-
 def buid_web_page(body)
-#puts body
-#puts body['photos']
     new_array = []
     new_array = body['photos']
-
-    puts new_array[1]['img_src']
-    inicio = 0
-        new_array.each do |x|
-            puts "<html>\n<head>\n</head>\n\t<body>\n\t\t<ul>"
-            identi = new_array[inicio]['id']
+        output = "<html>\n<head>\n</head>\n\t
+        <body>Image data gathered by NASA's Curiosity, Opportunity, and Spirit rovers on Mars\n\t\t<ul>"
+        inicio = 0
+        new_array.each do |x|            
             imagen = new_array[inicio]['img_src']
-puts identi
-puts imagen
-            inicio += 1                
-            puts "\n\t\t<ul>\n\t</body>\n</html>"
+            output += "\n\t\t<li><img src='#{imagen}' width='200' height='200'></li>"
+            inicio += 1                      
         end
-
+        output += "\n\t\t<ul>\n\t</body>\n</html>"
+    File.write('index.html',output)      
 end
 
 #Bloque del programa
-
-#request("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=10&","api_key=wqTZTANmx0kuzDXWqKHlCf39ggBaciwejQhSe7l3")
 buid_web_page(request("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=10&","api_key=wqTZTANmx0kuzDXWqKHlCf39ggBaciwejQhSe7l3"))
-
