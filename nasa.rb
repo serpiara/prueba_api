@@ -26,5 +26,4 @@ def buid_web_page(body)
         File.write('index.html',output)      
 end
 
-#Bloque del programa
 buid_web_page(request("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=10&","api_key=wqTZTANmx0kuzDXWqKHlCf39ggBaciwejQhSe7l3"))
